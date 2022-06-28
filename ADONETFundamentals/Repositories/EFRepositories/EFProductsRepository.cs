@@ -40,7 +40,7 @@ namespace ADONETFundamentals.Repositories.EFRepositories
 
         public void Update(Product entity)
         {
-            var item = _appContext.Products.FindAsync(entity.Id);
+            var item = _appContext.Products.Find(entity.Id);
             _appContext.Entry(item).CurrentValues.SetValues(entity);
             _appContext.SaveChanges();
         }

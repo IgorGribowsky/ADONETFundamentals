@@ -57,9 +57,18 @@
   <ItemGroup>
     <Folder Include="Properties" />
     <Folder Include="Tables" />
+    <Folder Include="StoredProcedures" />
   </ItemGroup>
   <ItemGroup>
-    <Build Include="Tables\Order.sql" />
-    <Build Include="Tables\Product.sql" />
+    <Build Include="Tables\Orders.sql" />
+    <Build Include="Tables\Products.sql" />
+    <Build Include="StoredProcedures\GetOrdersByYear.sql" />
+    <Build Include="StoredProcedures\GetOrdersByMonth.sql" />
+    <Build Include="StoredProcedures\GetOrdersByStatus.sql" />
+    <Build Include="StoredProcedures\GetOrdersByProduct.sql" />
+    <Build Include="StoredProcedures\DeleteOrdersByMonth.sql" />
+    <Build Include="StoredProcedures\DeleteOrdersByProduct.sql" />
+    <Build Include="StoredProcedures\DeleteOrdersByStatus.sql" />
+    <Build Include="StoredProcedures\DeleteOrdersByYear.sql" />
   </ItemGroup>
 </Project>

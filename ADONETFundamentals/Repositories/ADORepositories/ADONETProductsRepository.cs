@@ -10,8 +10,8 @@ namespace ADONETFundamentals.Repositories.ADORepositories
     {
         public int Create(Product entity)
         {
-            string sqlExpression = $"INSERT INTO Products (Name, Description, Height, Weight, Width, Lenght) " +
-                $"VALUES ('{entity.Name}', '{entity.Description}', {entity.Height}, {entity.Weight}, {entity.Width}, {entity.Lenght}); " +
+            string sqlExpression = $"INSERT INTO Products (Name, Description, Height, Weight, Width, Length) " +
+                $"VALUES ('{entity.Name}', '{entity.Description}', {entity.Height}, {entity.Weight}, {entity.Width}, {entity.Length}); " +
                 $"SELECT CAST(scope_identity() AS int)";
 
             int id = 0;
@@ -22,12 +22,13 @@ namespace ADONETFundamentals.Repositories.ADORepositories
                 id = (int)command.ExecuteScalar();
             }
 
+            entity.Id = id;
             return id;
         }
 
         public void Delete(int id)
         {
-            string sqlExpression = $"DELETE  FROM Products WHERE Id={id}";
+            string sqlExpression = $"DELETE FROM Products WHERE Id={id}";
 
             using (SqlConnection connection = new SqlConnection(AppConstants.ConnectionString))
             {
@@ -56,10 +57,10 @@ namespace ADONETFundamentals.Repositories.ADORepositories
                         int id = (int)reader.GetValue(0);
                         string name = (string)reader.GetValue(1);
                         string description = (string)reader.GetValue(2);
-                        float weight = (float)reader.GetValue(3);
-                        float height = (float)reader.GetValue(4);
-                        float width = (float)reader.GetValue(5);
-                        float lenght = (float)reader.GetValue(6);
+                        double weight = (double)reader.GetValue(3);
+                        double height = (double)reader.GetValue(4);
+                        double width = (double)reader.GetValue(5);
+                        double length = (double)reader.GetValue(6);
 
                         var product = new Product
                         {
@@ -69,7 +70,7 @@ namespace ADONETFundamentals.Repositories.ADORepositories
                             Weight = weight,
                             Height = height,
                             Width = width,
-                            Lenght = lenght,
+                            Length = length,
                         };
                         products.Add(product);
                     }
@@ -82,9 +83,9 @@ namespace ADONETFundamentals.Repositories.ADORepositories
         public Product GetById(int id)
         {
             string sqlExpression = "SELECT * FROM Products" +
-                $"WHERE Id = {id}";
+                $" WHERE Id = {id}";
 
-            var product = new Product();
+            Product product = null;
 
             using (SqlConnection connection = new SqlConnection(AppConstants.ConnectionString))
             {
@@ -94,12 +95,13 @@ namespace ADONETFundamentals.Repositories.ADORepositories
 
                 if (reader.HasRows)
                 {
+                    reader.Read();
                     string name = (string)reader.GetValue(1);
                     string description = (string)reader.GetValue(2);
-                    float weight = (float)reader.GetValue(3);
-                    float height = (float)reader.GetValue(4);
-                    float width = (float)reader.GetValue(5);
-                    float lenght = (float)reader.GetValue(6);
+                    double weight = (double)reader.GetValue(3);
+                    double height = (double)reader.GetValue(4);
+                    double width = (double)reader.GetValue(5);
+                    double length = (double)reader.GetValue(6);
 
                     product = new Product
                     {
@@ -109,7 +111,7 @@ namespace ADONETFundamentals.Repositories.ADORepositories
                         Weight = weight,
                         Height = height,
                         Width = width,
-                        Lenght = lenght,
+                        Length = length,
                     };
                 }
             }
@@ -120,12 +122,12 @@ namespace ADONETFundamentals.Repositories.ADORepositories
         public void Update(Product entity)
         {
             string sqlExpression = $"UPDATE Products " +
-                $"SET Name = {entity.Name}', " +
+                $"SET Name = '{entity.Name}', " +
                 $"Description = '{entity.Description}', " +
                 $"Height = {entity.Height}, " +
                 $"Weight = {entity.Weight}, " +
                 $"Width = {entity.Width}, " +
-                $"Lenght = {entity.Lenght} " +
+                $"Length = {entity.Length} " +
                 $"WHERE Id={entity.Id}";
 
             using (SqlConnection connection = new SqlConnection(AppConstants.ConnectionString))
