@@ -5,7 +5,7 @@ namespace ADONETFundamentals.Repositories.EFRepositories
 {
     public class EFProductsRepository : IProductsRepository
     {
-        private readonly ApplicationContext _appContext = new ApplicationContext();
+        private readonly ApplicationContext _appContext;
 
         public EFProductsRepository(ApplicationContext appContext)
         {

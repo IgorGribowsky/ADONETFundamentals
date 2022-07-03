@@ -8,7 +8,7 @@ namespace ADONETFundamentals.Repositories.EFRepositories
 {
     public class EFOrdersRepository : IOrdersRepository
     {
-        private readonly ApplicationContext _appContext = new ApplicationContext();
+        private readonly ApplicationContext _appContext;
 
         public EFOrdersRepository(ApplicationContext appContext)
         {
